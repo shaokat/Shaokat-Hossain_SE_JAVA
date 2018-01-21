@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Edit Product</title>
+</head>
+<body>
+<div>
+		<form action="#" th:action="@{/product/edit}" th:object="${selectedProduct}"
+			method="post">
+
+<input type="hidden" th:field="*{id}" th:value="${id}" />
+			<label for="name">Product Name</label> <input type="text" id="name"
+				th:field="*{productName}" th:text="${productName}" />
+
+			<label for="name">Product Price</label> <input type="text" id="name"
+														  th:field="*{productPrice}" th:text="${productPrice}" />
+
+			<label for="type">Type</label> <select
+				th:field="*{pType}">
+				<option
+					th:each="productType : ${T(com.shaokat.model.ProductType).values()}"
+					th:value="${productType}" th:text="${productType.typeName}"
+					th:selected="(${productType.typeName} == *{pType.typeName})">product
+					Types</option>
+			</select> <input type="submit" value="Edit" />
+		</form>
+	</div>
+</body>
+</html>
