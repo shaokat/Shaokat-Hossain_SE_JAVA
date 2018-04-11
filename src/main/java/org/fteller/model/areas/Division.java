@@ -31,7 +31,7 @@ public class Division {
     @Size(min = 3, message = "Division Name should have atleast 3 character")
     private @Getter@Setter String name;
 
-    @OneToMany(mappedBy = "division",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "division",orphanRemoval = true,cascade = CascadeType.REMOVE)
     @JsonIgnore
     private @Getter@Setter
     Set<District> districts;

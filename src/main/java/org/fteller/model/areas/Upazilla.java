@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -24,6 +25,7 @@ public class Upazilla {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private @Getter@Setter int id;
+    @Size(min = 3, message = "Upazilla Name should have atleast 3 character")
     private @Getter@Setter String name;
 
     @OneToMany(mappedBy = "upazilla",cascade = CascadeType.ALL)

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,7 +22,7 @@ public class UpazlillaController {
     DistrictService districtService;
 
     @PostMapping(path = "/district/{id}/upazilla")
-    public void addUpazilla(@PathVariable int id, @RequestBody Upazilla upazilla) throws NotFoundException {
+    public void addUpazilla(@Valid @PathVariable int id, @RequestBody Upazilla upazilla) throws NotFoundException {
 
         District district = districtService.getDistrictById(id);
         upazillaService.createUpazilla(upazilla.getName(),district);

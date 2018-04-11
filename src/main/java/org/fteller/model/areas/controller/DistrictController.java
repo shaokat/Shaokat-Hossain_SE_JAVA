@@ -8,6 +8,7 @@ import org.fteller.model.areas.services.DivisionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,12 +21,12 @@ public class DistrictController
     DivisionService divisionService;
 
     @GetMapping(path = "/division/{id}/districts")
-    public List<District> getAllDistrictByDivision(@PathVariable Division id) throws NotFoundException {
+    public List<District> getAllDistrictsByDivision(@PathVariable Division id) throws NotFoundException {
         return districtService.getDsitrictsByDivisionId(id);
     }
 
     @PostMapping(path = "/division/{id}/district")
-    public void createDistrict(@PathVariable int id,@RequestBody District district) throws NotFoundException {
+    public void createDistrict(@Valid @PathVariable int id, @RequestBody District district) throws NotFoundException {
 
         Division division = divisionService.findDivisionById(id);
         if(division!=null){

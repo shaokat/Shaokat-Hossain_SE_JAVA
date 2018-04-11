@@ -8,6 +8,7 @@ import lombok.*;
 import org.fteller.model.relief.ReliefRecords;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
 
@@ -24,6 +25,7 @@ public class UnionParisad {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private  @Getter@Setter int id;
+    @Size(min = 3, message = "UnionParisad Name should have atleast 3 character")
     private  @Getter@Setter String name;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)

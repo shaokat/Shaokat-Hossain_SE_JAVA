@@ -41,7 +41,7 @@ public class UnionParisadService {
         return unionRepository.findAll();
     }
 
-    public List<UnionParisad> getUnionparisadByUpazilla(Upazilla id) throws NotFoundException {
+    public List<UnionParisad> getUnionparisadsByUpazilla(Upazilla id) throws NotFoundException {
 
         List<UnionParisad> upazillas =  unionRepository.findByUpazilla(id);
         if (upazillas != null && !upazillas.isEmpty())
