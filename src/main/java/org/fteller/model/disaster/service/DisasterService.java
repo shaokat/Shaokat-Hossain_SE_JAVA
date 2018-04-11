@@ -15,12 +15,12 @@ public class DisasterService {
     @Autowired
     DisasterRepository repository;
 
-    public boolean saveDisasterRecord(Disaster record){
+    public Disaster saveDisasterRecord(Disaster record){
         if(record != null){
             repository.save(record);
-            return true;
+            return record;
         }else
-            return false;
+            return null;
     }
 
     public List<Disaster> getDisasterRecords(){
@@ -29,5 +29,10 @@ public class DisasterService {
 
     public Disaster getDisasterById(int id){
         return repository.findOne(id);
+    }
+    public Disaster deleteDisasterRecord(int id){
+     Disaster record= repository.findOne(id);
+     repository.delete(record);
+     return record;
     }
 }
