@@ -1,5 +1,6 @@
 package org.fteller.model.disaster.controller;
 
+import org.fteller.Exception.NotFoundException;
 import org.fteller.model.disaster.Disaster;
 import org.fteller.model.disaster.service.DisasterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,8 @@ public class DisasterController {
     @DeleteMapping(path = "/delete/{id}")
     public void deleteDisasterRecord(@PathVariable int id){
         Disaster deleted = service.deleteDisasterRecord(id);
-
+        if (deleted == null)
+            throw new NotFoundException("disaster record with the id: "+id+" not found");
     }
 
 }
