@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.fteller.model.areas.UnionParisad;
+import org.fteller.model.disaster.Disaster;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -41,6 +42,11 @@ public class ReliefRecords {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "relief_type_id")
     private @Getter@Setter ReliefType type;
+
+    @ManyToOne
+    @JoinColumn(name = "disaster_id")
+    @JsonIgnore
+    @Getter@Setter private Disaster disaster;
 
 
     public LocalDate getDate(){
