@@ -43,26 +43,15 @@ public class DistrictService {
 
 
 
-    public List<District> getDsitrictsByDivisionId(Division id) throws NotFoundException {
+    public List<District> getDsitrictsByDivisionId(Division id)  {
 
         List<District> district =  districtRepository.findByDivision(id);
-        if (district != null && !district.isEmpty())
-        {
-            return district;
-        }
-        else {
-            throw new NotFoundException("No District Available for Division id: "+id);
-        }
+        return district;
+
     }
 
-    public District getDistrictById(int id) throws NotFoundException {
+    public District getDistrictById(int id) {
         District district = districtRepository.findOne(id);
-        if(district != null){
-            return district;
-        }
-        else {
-            throw new NotFoundException("District for id: "+id+" not Found");
-        }
-
+        return  district;
     }
 }

@@ -1,6 +1,5 @@
 package org.fteller.model.areas.controller;
-
-import javassist.NotFoundException;
+import org.fteller.Exception.NotFoundException;
 import org.fteller.model.areas.UnionParisad;
 import org.fteller.model.areas.Upazilla;
 import org.fteller.model.areas.services.UnionParisadService;
@@ -18,13 +17,25 @@ public class UnionController {
 
     @GetMapping(value = "/upazilla/{id}/uinion")
     @ResponseBody
-    public List<UnionParisad> getAllUnion(@PathVariable Upazilla id) throws NotFoundException {
-        return unionParisadService.getUnionparisadsByUpazilla(id);
+    public List<UnionParisad> getAllUnion(@PathVariable Upazilla id) {
+        List<UnionParisad> unionParisads = unionParisadService.getUnionparisadsByUpazilla(id);
+        if (unionParisads!=null && !unionParisads.isEmpty() ){
+            return unionParisads;
+        }
+
+        else {
+            throw new NotFoundException("No UnionParisad Available for Upazilla id: "+id);
+        }
     }
     @PostMapping(path = "/upazilla/{id}/union")
-    public void addUpazilla(@Valid @PathVariable int id, @RequestBody UnionParisad unionParisad) throws NotFoundException {
+    public void addUpazilla(@Valid @PathVariable int id, @RequestBody UnionParisad unionParisad) {
 
         Upazilla upazilla = unionParisadService.getUpazilla(id);
-        unionParisadService.createUnion(unionParisad.getName(),upazilla);
+        if(upazilla!=null) {
+            unionParisadService.createUnion(unionParisad.getName(), upazilla);
+        }
+         else {
+            throw new NotFoundException("Upzilla for id: "+id+" not Found");
+        }
     }
 }

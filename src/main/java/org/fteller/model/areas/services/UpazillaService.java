@@ -1,6 +1,5 @@
 package org.fteller.model.areas.services;
 
-import javassist.NotFoundException;
 import org.fteller.model.areas.District;
 import org.fteller.model.areas.Upazilla;
 import org.fteller.model.areas.repositories.UpazillaRepository;
@@ -39,13 +38,10 @@ public class UpazillaService {
     public List<Upazilla> getUpazillas() {
         return upazillaRepository.findAll();
     }
-    public List<Upazilla> getUpazillasByDistrictId(District id) throws NotFoundException {
+    public List<Upazilla> getUpazillasByDistrictId(District id) {
 
         List<Upazilla> upazillas = upazillaRepository.findByDistrict(id);
-        if (upazillas != null && !upazillas.isEmpty()) {
             return upazillas;
-        } else {
-            throw new NotFoundException("No Upazilla Available for District id: " + id);
-        }
+
     }
 }

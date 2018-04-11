@@ -1,12 +1,10 @@
 package org.fteller.model.areas.controller;
-
-import javassist.NotFoundException;
+import org.fteller.Exception.NotFoundException;
 import org.fteller.model.areas.District;
 import org.fteller.model.areas.Upazilla;
 import org.fteller.model.areas.services.DistrictService;
 import org.fteller.model.areas.services.UpazillaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,16 +20,32 @@ public class UpazlillaController {
     DistrictService districtService;
 
     @PostMapping(path = "/district/{id}/upazilla")
-    public void addUpazilla(@Valid @PathVariable int id, @RequestBody Upazilla upazilla) throws NotFoundException {
+    public void addUpazilla(@Valid @PathVariable int id, @RequestBody Upazilla upazilla) {
 
         District district = districtService.getDistrictById(id);
-        upazillaService.createUpazilla(upazilla.getName(),district);
+        if(district!=null){
+            upazillaService.createUpazilla(upazilla.getName(),district);
+        }
+
+        else {
+                throw new NotFoundException("No Upazilla Available for District id: " + id);
+
+        }
+
     }
 
     @GetMapping(value = "/district/{id}/upazillas")
     @ResponseBody
-    public List<Upazilla> getAllUP(@PathVariable District id) throws NotFoundException {
-        return upazillaService.getUpazillasByDistrictId(id);
+    public List<Upazilla> getAllUP(@PathVariable District id) {
+        List<Upazilla> upazillas =  upazillaService.getUpazillasByDistrictId(id);
+
+        if (upazillas!=null && !upazillas.isEmpty()){
+            return upazillas;
+        }
+        else {
+            throw new org.fteller.Exception.NotFoundException("No Upazilla Available for District id: " + id);
+        }
+
     }
 
 }

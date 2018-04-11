@@ -1,6 +1,4 @@
 package org.fteller.model.areas.services;
-
-import javassist.NotFoundException;
 import org.fteller.model.areas.District;
 import org.fteller.model.areas.UnionParisad;
 import org.fteller.model.areas.Upazilla;
@@ -41,25 +39,13 @@ public class UnionParisadService {
         return unionRepository.findAll();
     }
 
-    public List<UnionParisad> getUnionparisadsByUpazilla(Upazilla id) throws NotFoundException {
+    public List<UnionParisad> getUnionparisadsByUpazilla(Upazilla id)  {
 
-        List<UnionParisad> upazillas =  unionRepository.findByUpazilla(id);
-        if (upazillas != null && !upazillas.isEmpty())
-        {
-            return upazillas;
-        }
-        else {
-            throw new NotFoundException("No UnionParisad Available for Upazilla id: "+id);
-        }
+        List<UnionParisad>  unionParisads =  unionRepository.findByUpazilla(id);
+       return unionParisads;
     }
-    public Upazilla getUpazilla(int id) throws NotFoundException {
+    public Upazilla getUpazilla(int id)  {
         Upazilla upazilla = upazillaRepository.findOne(id);
-        if(upazilla != null){
-            return upazilla;
-        }
-        else {
-            throw new NotFoundException("Upzilla for id: "+id+" not Found");
-        }
-
+       return upazilla;
     }
 }

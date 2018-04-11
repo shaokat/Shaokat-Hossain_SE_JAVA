@@ -36,16 +36,10 @@ public class DivisionService {
     public List<Division> getDivisions() {
         return divisionRepository.findAll();
     }
-    public Division findDivisionById(int id) throws NotFoundException {
+    public Division findDivisionById(int id)  {
         Optional<Division> divisionOptional = divisionRepository.findById(id);
-        if(!divisionOptional.isPresent()){
-            throw new NotFoundException("Division for id: "+id+" is not Found");
-
-        }
-        else {
-
             return divisionOptional.get();
         }
-    }
+
 }
 
